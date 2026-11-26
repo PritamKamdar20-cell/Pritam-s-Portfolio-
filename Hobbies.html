@@ -1,0 +1,689 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pritam's Portfolio</title>
+
+  <link rel="icon" href="Assets/favicon.ico">
+
+  <!-- =========================
+       CSS
+  ========================== -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    /* =========================
+       THEME
+    ========================== */
+
+    :root {
+      color-scheme: light dark;
+
+      --bg: #edf8ff;
+      --card: rgba(255, 255, 255, 0.75);
+      --text: #12324b;
+      --muted: #58758e;
+      --accent: #087eae;
+      --border: rgba(29, 120, 165, 0.2);
+      --shadow: 0 12px 35px rgba(20, 100, 150, 0.12);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #061523;
+        --card: rgba(12, 34, 52, 0.82);
+        --text: #eaf7ff;
+        --muted: #9bbbd0;
+        --accent: #62d5f4;
+        --border: rgba(116, 211, 245, 0.18);
+        --shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* =========================
+       RESET
+    ========================== */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 120px;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 0 20px;
+
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+
+      background-color: var(--bg);
+
+      /* Ocean glow and glinted background */
+      background-image:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(56, 189, 248, 0.18),
+          transparent 30rem
+        ),
+        radial-gradient(
+          circle at 85% 25%,
+          rgba(96, 165, 250, 0.15),
+          transparent 28rem
+        ),
+        radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.8) 1px,
+          transparent 2px
+        ),
+        radial-gradient(
+          circle,
+          rgba(50, 180, 225, 0.35) 1px,
+          transparent 2px
+        );
+
+      background-size:
+        auto,
+        auto,
+        75px 75px,
+        115px 115px;
+
+      background-position:
+        center,
+        center,
+        10px 15px,
+        40px 50px;
+
+      background-attachment: fixed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+
+      margin: 0 -20px;
+      padding: 15px clamp(20px, 5vw, 65px);
+
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
+
+    /* Logo */
+
+    #Logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #Logo img,
+    footer img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    #Logo p {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    /* Navigation */
+
+    #menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    #menu a {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    #menu a:hover {
+      color: var(--accent);
+    }
+
+    /* Search */
+
+    header input {
+      width: 200px;
+      padding: 10px 15px;
+
+      color: var(--text);
+      background: var(--card);
+
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      outline: none;
+
+      font: inherit;
+      font-size: 0.9rem;
+
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    }
+
+    header input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(39, 189, 232, 0.15);
+    }
+
+    header input::placeholder {
+      color: var(--muted);
+    }
+
+    /* =========================
+       MAIN
+    ========================== */
+
+    main {
+      width: min(1100px, 100%);
+      margin: 50px auto;
+    }
+
+    main section {
+      margin-bottom: 65px;
+      scroll-margin-top: 120px;
+    }
+
+    /* Section headings */
+
+    main section::before {
+      display: block;
+      margin-bottom: 25px;
+
+      color: var(--accent);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+    }
+
+    #Illustration::before {
+      content: "Illustrations";
+    }
+
+    #Animation::before {
+      content: "Animations";
+    }
+
+    #music::before {
+      content: "Music";
+    }
+
+    /* =========================
+       PROJECT GRID
+    ========================== */
+
+    #Illustration,
+    #Animation,
+    #music {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 25px;
+    }
+
+    /* Heading spans the entire grid */
+
+    #Illustration::before,
+    #Animation::before,
+    #music::before {
+      grid-column: 1 / -1;
+    }
+
+    /* Project cards */
+
+    .project-card {
+      min-width: 0;
+      padding: 18px;
+
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+
+      transition:
+        transform 0.25s,
+        border-color 0.25s,
+        box-shadow 0.25s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+
+      box-shadow:
+        var(--shadow),
+        0 0 25px rgba(39, 189, 232, 0.1);
+    }
+
+    /* =========================
+       PROJECT IMAGES
+    ========================== */
+
+    #Illustration .project-card img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+
+      background: rgba(50, 150, 200, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    /* =========================
+       PROJECT TITLES
+    ========================== */
+
+    .project-card .title {
+      margin-top: 16px;
+
+      color: var(--accent);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    /* =========================
+       DESCRIPTIONS
+    ========================== */
+
+    .project-card .description {
+      margin-top: 8px;
+
+      color: var(--muted);
+      font-size: 0.95rem;
+
+      overflow-wrap: anywhere;
+    }
+
+    /* =========================
+       VIDEOS
+    ========================== */
+
+    #Animation video,
+    #music video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+
+      background: #020b13;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    video:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    /* =========================
+       NO RESULTS
+    ========================== */
+
+    #noResults {
+      margin: 30px 0;
+
+      color: var(--muted);
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      margin: 0 -20px;
+      padding: 25px 20px;
+
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(15px);
+    }
+
+    footer > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* =========================
+       TABLET
+    ========================== */
+
+    @media (max-width: 850px) {
+      header {
+        justify-content: center;
+      }
+
+      #menu {
+        justify-content: center;
+      }
+
+      header input {
+        width: min(100%, 300px);
+      }
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0 12px;
+      }
+
+      header,
+      footer {
+        margin-inline: -12px;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px;
+      }
+
+      #menu {
+        justify-content: center;
+        gap: 12px;
+      }
+
+      #menu a {
+        font-size: 0.82rem;
+      }
+
+      #Illustration,
+      #Animation,
+      #music {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      main {
+        margin: 35px auto;
+      }
+
+      main section {
+        margin-bottom: 45px;
+      }
+
+      .project-card {
+        padding: 14px;
+      }
+    }
+
+    /* =========================
+       REDUCED MOTION
+    ========================== */
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <nav id="Logo">
+      <img src="Assets/favicon.ico" alt="Portfolio logo">
+      <p>Pritam's Portfolio</p>
+    </nav>
+
+    <nav id="menu">
+      <a href="index.html">Home</a>
+      <a href="Portfolio.html">Portfolio</a>
+      <a href="biodata.html">BioData</a>
+
+      <a href="#Illustration">Illustration</a>
+      <a href="#Animation">Animation</a>
+      <a href="#music">Music</a>
+    </nav>
+
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Search projects..."
+      aria-label="Search projects"
+    >
+
+  </header>
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main>
+
+    <!-- =========================
+         ILLUSTRATIONS
+    ========================== -->
+
+    <section id="Illustration">
+
+      <div class="project-card">
+        <img src="" alt="Digital landscape illustration" loading="lazy">
+        <p class="title"></p>
+        <p class="description"></p>
+      </div>
+
+     
+
+    </section>
+
+    <!-- =========================
+         ANIMATIONS
+    ========================== -->
+
+    <section id="Animation">
+
+      <div class="project-card">
+        <video controls preload="metadata">
+          <source src="" type="">
+          Your browser does not support video playback.
+        </video>
+        <p class="title"></p>
+        <p class="description"></p>
+      </div>
+
+      
+
+    </section>
+
+    <!-- =========================
+         MUSIC
+    ========================== -->
+
+    <section id="music">
+
+      <div class="project-card">
+        <video controls preload="metadata">
+          <source src="" type="">
+          Your browser does not support video playback.
+        </video>
+        <p class="title"></p>
+        <p class="description"></p>
+      </div>
+
+      
+    </section>
+
+    <!-- Search message -->
+
+    <p id="noResults" hidden>
+      No projects found.
+    </p>
+
+  </main>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div>
+      <img src="Assets/favicon.ico" alt="Portfolio logo">
+
+      <p>
+        Pritam's Portfolio |
+        Student |
+        Web Developer |
+        Video Editor |
+        End Of Page
+      </p>
+    </div>
+
+  </footer>
+
+  <!-- =========================
+       SEARCH JAVASCRIPT
+  ========================== -->
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+
+    const projectCards = document.querySelectorAll(
+      "#Illustration .project-card, " +
+      "#Animation .project-card, " +
+      "#music .project-card"
+    );
+
+    const noResults = document.getElementById("noResults");
+
+    searchInput.addEventListener("input", () => {
+
+      const query = searchInput.value
+        .trim()
+        .toLowerCase();
+
+      let visibleProjects = 0;
+
+      projectCards.forEach(card => {
+
+        // Search image alt text and filename
+        const image = card.querySelector("img");
+
+        const imageText = image
+          ? `${image.alt} ${image.getAttribute("src") || ""}`
+          : "";
+
+        // Search video filename
+        const videoSource = card.querySelector("video source");
+
+        const videoText = videoSource
+          ? videoSource.getAttribute("src") || ""
+          : "";
+
+        // Search title
+        const title = card.querySelector(".title");
+
+        const titleText = title
+          ? title.textContent
+          : "";
+
+        // Search description
+        const description = card.querySelector(".description");
+
+        const descriptionText = description
+          ? description.textContent
+          : "";
+
+        // Combine searchable content
+        const searchableText = (
+          imageText + " " +
+          videoText + " " +
+          titleText + " " +
+          descriptionText
+        ).toLowerCase();
+
+        // Check whether the project matches
+        const matches = searchableText.includes(query);
+
+        // Show or hide the card
+        card.hidden = !matches;
+
+        if (matches) {
+          visibleProjects++;
+        }
+
+      });
+
+      // Show message if no projects match
+      noResults.hidden = visibleProjects > 0;
+
+    });
+  </script>
+
+</body>
+</html>

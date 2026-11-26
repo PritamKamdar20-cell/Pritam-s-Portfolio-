@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pritam's Portfolio</title>
+    <link rel="icon" href="Assets/favicon.ico">
+    
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+  :root {
+    color-scheme: light dark;
+
+    --bg: #edf8ff;
+    --surface: rgba(255, 255, 255, 0.78);
+    --text: #12324b;
+    --muted: #58758e;
+    --accent: #087eae;
+    --border: rgba(29, 120, 165, 0.2);
+    --shadow: 0 12px 35px rgba(20, 100, 150, 0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #061523;
+      --surface: rgba(12, 34, 52, 0.82);
+      --text: #eaf7ff;
+      --muted: #9bbbd0;
+      --accent: #62d5f4;
+      --border: rgba(116, 211, 245, 0.18);
+      --shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    padding: 0 20px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(circle at 15% 10%,
+        rgba(56, 189, 248, 0.18), transparent 30rem),
+      radial-gradient(circle at 85% 25%,
+        rgba(96, 165, 250, 0.15), transparent 28rem),
+      radial-gradient(circle,
+        rgba(255, 255, 255, 0.8) 1px, transparent 2px),
+      radial-gradient(circle,
+        rgba(50, 180, 225, 0.35) 1px, transparent 2px);
+
+    background-size:
+      auto,
+      auto,
+      75px 75px,
+      115px 115px;
+
+    background-position:
+      center,
+      center,
+      10px 15px,
+      40px 50px;
+
+    background-attachment: fixed;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Navigation */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    padding: 16px clamp(16px, 5vw, 60px);
+
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(15px);
+  }
+
+  #Logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #Logo img,
+  footer img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  #Logo p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  #menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  #menu a {
+    color: var(--muted);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  #menu a:hover {
+    color: var(--accent);
+  }
+
+  /* Main content */
+  main {
+    width: min(950px, 100%);
+    margin: 45px auto;
+    padding: clamp(20px, 5vw, 45px);
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+  }
+
+  main > p {
+    margin: 10px 0;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+
+  main > p b,
+  main > b {
+    color: var(--text);
+  }
+
+  main > b {
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 10px;
+
+    color: var(--accent);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+  }
+
+  /* Education table */
+  table {
+    width: 100%;
+    margin: 18px 0 30px;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  th,
+  td {
+    padding: 13px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  th {
+    background: rgba(40, 160, 210, 0.12);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  tr:nth-child(even) {
+    background: rgba(70, 170, 220, 0.06);
+  }
+
+  tr:hover {
+    background: rgba(60, 180, 230, 0.12);
+  }
+
+  /* Footer */
+  footer {
+    padding: 25px 10px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+  }
+
+  footer > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    text-align: center;
+  }
+
+  footer p {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  /* Mobile layout */
+  @media (max-width: 650px) {
+    header {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #menu {
+      justify-content: center;
+      gap: 15px;
+    }
+
+    main {
+      margin: 25px auto;
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    * {
+      transition: none !important;
+    }
+  }
+</style>
+
+  </head>
+  <body>
+    <header>
+      <nav id="Logo">
+        <img src="Assets/favicon.ico">
+        <p>Pritam's Portfolio</p>
+      </nav>
+      <nav id="menu">
+        <a href="index.html">Home</a>
+        <a href="Portfolio.html">Portfolio</a>
+        <a href="Hobbies.html">Hobbies</a>
+      </nav>
+    </header>
+    <main>
+      <p><b>Name: </b>Pritam kamdar</p>
+      <p><b>Father's Name: </b>Sunil Kamdar</p>
+      <p><b>Mother's Name: </b>Alka Kamdar</p>
+      <p><b>Date Of Birth: </b>8th November, 2009</p>
+      <p><b>Age: </b>17 (2026)</p>
+      <p><b>Address: </b>Mp,Indore(Incomplete Address)</p>
+      <p><b>Nationality: </b>Indian</p>
+      <p><b>Email: </b>pritamkamdar2.0@gmail.com</p>
+      <b>Education Qualification: </b>
+      <table>
+        <tr>
+          <th>Name of Exam</th>
+          <th>Collage/Board/University</th>
+          <th>Year of Passinf</th>
+          <th>Mark</th>
+          <th>Percentage</th>
+        </tr>
+        <tr>
+          <th>B.Tech</th>
+          <th>Not Define</th>
+          <th>Not Define</th>
+          <th>Not Define</th>
+          <th>Not Define</th>
+        </tr>
+        <tr>
+          <th>12th</th>
+          <th>Not Define</th>
+          <th>Not Define</th>
+          <th>Not Define</th>
+          <th>Not Define</th>
+        </tr>
+        <tr>
+          <th>10th</th>
+          <th>CBSE</th>
+          <th>2026 of (2025-26)</th>
+          <th>359/500</th>
+          <th>72(71.8)</th>
+        </tr>
+      </table>
+      <b>skills: </b>
+      <p>Knowledge of Web Development</p>
+      <p>Knowledge of Video Editing</p>
+      <p>Standard Knowlege of Tech and Office Tools</p>
+      <b>Exprience: </b>
+      <p>Home practice and school asignments.</p>
+      <b>Language Known: </b>
+      <p>English</p>
+      <p>Hindi</p>
+      <p>Malwadi(Mother Tongue)</p>
+      <b>Hobbies: </b>
+      <p>Making Illustration</p>
+      <p>Playing Music</p>
+      <b>References: </b>
+      <p>None</p>
+    </main>
+    <footer>
+      <div>
+        <img src="Assets/favicon.ico">
+        <p>Pritam's Portfolio| Student | End Of Page | Web Developer | Video Editor</p>
+      </div>
+    </footer>
+  </body>
+ </html>
