@@ -1,69 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pritam's Portfolio</title>
-  <link rel="icon" href="Assets/favicon.ico">
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-  <header>
-    <nav id="Logo">
-      <img src="Assets/favicon.ico" alt="Portfolio logo">
-      <p>Pritam's Portfolio</p>
-    </nav>
-    <nav id="menu">
-      <a href="index.html">Home</a>
-      <a href="Portfolio.html">Portfolio</a>
-      <a href="biodata.html">BioData</a>
-      <a href="#Illustration">Illustration</a>
-      <a href="#Animation">Animation</a>
-      <a href="#music">Music</a>
-    </nav>
-    <input type="search" id="searchInput" placeholder="Search projects..." aria-label="Search projects">
-  </header>
-  <main>
-    <section id="Illustration">
-      <div class="project-card" data-date="">
-        <img src="" alt="Digital landscape illustration" loading="lazy">
-        <p class="title"></p>
-        <p class="description"></p>
-        <p id="Date"></p>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies | Pritam Kamdar</title>
+    <link rel="icon" href="Assets/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="filter.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">PK</span>Pritam Kamdar</a>
+        <nav id="menu" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="Portfolio.html">Portfolio</a>
+          <a href="Hobbies.html" aria-current="page">Hobbies</a>
+          <a href="biodata.html">Biodata</a>
+        </nav>
       </div>
-    </section>
-    <section id="Animation">
-      <div class="project-card" data-date="">
-        <video controls preload="metadata">
-          <source src="" type="">
-          Your browser does not support video playback.
-        </video>
-        <p class="title"></p>
-        <p class="description"></p>
-        <p id="Date"></p>
+    </header>
+    <main>
+      <div class="page-intro">
+        <p class="eyebrow">Creative notebook</p>
+        <h1>Hobbies</h1>
+        <p>What I make away from the code editor: illustrations, animations, and music.</p>
       </div>
-    </section>
-    <section id="music">
-      <div class="project-card" data-date="">
-        <video controls preload="metadata">
-          <source src="" type="">
-          Your browser does not support video playback.
-        </video>
-        <p class="title"></p>
-        <p class="description"></p>
-        <p id="Date"></p>
-      </div>   
-    </section>
-  </main>
-  <footer>
-    <div>
-      <img src="Assets/favicon.ico" alt="Portfolio logo">
-      <p>Pritam's Portfolio | Student | End Of Page | Web Developer | Video Editor</p>
-    </div>
-  </footer>
-  <script src="filter.js"></script>
-</body>
+      <div class="project-tools">
+        <nav class="category-nav" aria-label="Hobby categories">
+          <a href="#Illustration">Illustration</a>
+          <a href="#Animation">Animation</a>
+          <a href="#music">Music</a>
+        </nav>
+        <label class="project-search" hidden>Search projects
+          <input type="search" id="searchInput" placeholder="Title, description, or date">
+        </label>
+      </div>
+      <p class="search-status" id="searchStatus" role="status"></p>
+      <section class="project-section" id="Illustration">
+        <h2>Illustration</h2>
+        <div class="project-grid"></div>
+        <p class="project-empty">No illustrations published here yet.</p>
+      </section>
+      <section class="project-section" id="Animation">
+        <h2>Animation</h2>
+        <div class="project-grid"></div>
+        <p class="project-empty">No animations published here yet.</p>
+      </section>
+      <section class="project-section" id="music">
+        <h2>Music</h2>
+        <div class="project-grid"></div>
+        <p class="project-empty">No music published here yet.</p>
+      </section>
+    </main>
+    <footer>
+      <div><p>Pritam Kamdar · Student portfolio</p><a href="index.html#Contact">Contact</a></div>
+    </footer>
+  </body>
 </html>

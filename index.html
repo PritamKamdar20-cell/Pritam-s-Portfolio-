@@ -10,81 +10,82 @@
   </head>
   <body>
     <header>
-      <nav id="Logo">
-        <img src="Assets/favicon.ico">
-        <p>Pritam's Portfolio</p>
-      </nav>
-      <nav id="menu">
-        <a href="Portfolio.html">Portfolio</a>
-        <a href="Hobbies.html">Hobbies</a>
-        <a href="biodata.html">BioData</a>
-        <a href="#Me">Me</a>
-        <a href="#About">About</a>
-        <a href="#Contact">Contact</a>
-      </nav>
+      <div class="header-inner">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">PK</span>Pritam Kamdar</a>
+        <nav id="menu" aria-label="Main navigation">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="Portfolio.html">Portfolio</a>
+          <a href="Hobbies.html">Hobbies</a>
+          <a href="biodata.html">Biodata</a>
+        </nav>
+      </div>
     </header>
-    <main>
-      <section id="Me">
+    <main class="home">
+      <section id="Me" class="hero" aria-labelledby="intro-title">
         <div>
-          <p>I'M Pritam</p>
-          <br>
-          <p>A Web Developer & Video Editor</p>
+          <p class="eyebrow">Student portfolio</p>
+          <h1 id="intro-title">Pritam <em>Kamdar</em></h1>
+          <p class="hero-role">Web development &amp; video editing</p>
+          <p class="hero-description">I’m a student in Indore, learning to build websites and edit videos. This portfolio is where I keep track of what I make and what I learn.</p>
+          <div class="actions">
+            <a class="button button-primary" href="Portfolio.html">Explore my work <span aria-hidden="true">↗</span></a>
+            <a class="button" href="#About">About me <span aria-hidden="true">↓</span></a>
+          </div>
         </div>
-        <div id="imgtext">
-          <img src="Assets/Images/me.png">
-          <p>Hi! I'm Pritam a school student. I learning web development and Video editing. I made this portfolio to record my achievment and I'm not a freelancer yet.</p>
-          <p>Thank You</p>
+        <figure class="portrait">
+          <img src="Assets/Images/me.png" alt="Pritam Kamdar" width="896" height="1195">
+          <figcaption><span>01 / Self portrait</span><span>Indore, India</span></figcaption>
+        </figure>
+      </section>
+      <section id="About" aria-labelledby="about-title">
+        <div class="section-heading">
+          <p class="eyebrow">01 / Background</p>
+          <h2 id="about-title">About me</h2>
+        </div>
+        <div class="about-grid">
+          <div class="panel">
+            <h3>Profile</h3>
+            <p>Based in Indore, Madhya Pradesh. Outside of coding and editing, I enjoy illustration and music.</p>
+            <p><a href="biodata.html">Read my biodata</a></p>
+          </div>
+          <div class="panel">
+            <h3>Skills</h3>
+            <ul class="skills"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Python</li><li>SQL</li><li>Video editing</li></ul>
+          </div>
+          <div class="panel">
+            <h3>Education</h3>
+            <p>Class 11 · Maths and Computer Science</p>
+            <p>Class 10 · 72% (CBSE)</p>
+            <p>Goal: B.Tech.</p>
+          </div>
         </div>
       </section>
-      <section id="About">
-        <div id="personal">
-          <h5>About Me</h5>
-          <p><b>Name: </b>Pritam Kamdar</p>
-          <p><b>Date Of Birth: </b>8th Nov 2009</p>
-          <p><b>Age: </b>17 (2026)</p>
-          <p><b>nationality: </b>Indian</p>
-          <p><b>location: </b>MP, Indore</p>
-          <p>I'm vegetarian</p>
+      <section id="Contact" aria-labelledby="contact-title">
+        <div class="section-heading">
+          <p class="eyebrow">02 / Contact</p>
+          <h2 id="contact-title">Get in touch</h2>
         </div>
-        <div id="qualification">
-          <h5>Qualification</h5>
-          <b>language learnt: </b>
-          <p>HTML</p>
-          <p>CSS</p>
-          <p>JavaScript</p>
-          <p>Python</p>
-          <p>SQL</p>
-          <b>Other: </b>
-          <p>Video Editor</p>
-        </div>
-        <div id="education">
-          <h5>Education</h5>  
-          <p><b>10th: </b>72% (CBSE)</p>
-          <p><b>Current: </b> 11th By Maths + Computer Science</p>
-          <p><b>Target: </b>B.Tech. (Only)</p>
-        </div>
-      </section>
-      <section id="Contact">
-        <div id="media">
-          <p>Social Media</p>
-          <a href="https://youtube.com/@pritam_kamdar?si=m2OgBppthGxcEjpl"><img src="Assets/Icons/youtube.svg"> Youtube</a>
-          <a href="https://www.instagram.com/pritam_11_2009?dmpr=bTZoYmQ3N28wYWcz"><img src="Assets/Icons/instagram.svg"> Instagram</a>
-          <a href="https://www.linkedin.com/in/pritam-kamdar-396842412?utm_source=share_via&utm_content=profile&utm_medium=member_android"><img src="Assets/Icons/linkedin.svg"> LinkedIn </a>
-        </div>
-        <div id="touch">
-          <p>Get in Touch</p>
-          <p>Mail Me</p>
-          <a href="mailto:pritamkamdar2.0@gmail.com">Mail to pritamkamdar2.0@gmail.com (Me)</a>
-          <p>Call Me</p>
-          <p>Coming soon</p>
+        <div class="contact-grid">
+          <div class="panel">
+            <h3>Around the web</h3>
+            <div class="social-links">
+              <a href="https://youtube.com/@pritam_kamdar?si=m2OgBppthGxcEjpl"><img src="Assets/Icons/youtube.svg" alt=""> YouTube</a>
+              <a href="https://www.instagram.com/pritam_11_2009?dmpr=bTZoYmQ3N28wYWcz"><img src="Assets/Icons/instagram.svg" alt=""> Instagram</a>
+              <a href="https://www.linkedin.com/in/pritam-kamdar-396842412?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android"><img src="Assets/Icons/linkedin.svg" alt=""> LinkedIn</a>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Email me</h3>
+            <a href="mailto:pritamkamdar2.0@gmail.com">pritamkamdar2.0@gmail.com</a>
+          </div>
         </div>
       </section>
     </main>
     <footer>
       <div>
-        <img src="Assets/favicon.ico">
-        <p>Pritam's Portfolio| Student | End Of Page | Web Developer | Video Editor</p>
+        <p>Pritam Kamdar · Student portfolio</p>
+        <a href="#Contact">Contact</a>
       </div>
     </footer>
   </body>
- </html>
+</html>
