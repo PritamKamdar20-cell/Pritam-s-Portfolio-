@@ -1,111 +1,94 @@
-/**
- * filter.js
- * 1. Automatically sorts .project-card elements inside each section by date (newest first).
- * 2. Provides live search filtering across titles, descriptions, and dates.
- */
-
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
-  const sections = document.querySelectorAll("main section");
+  const searchStatus = document.getElementById("searchStatus");
+  const groups = Array.from(document.querySelectorAll(".project-section"), (section) => {
+    const grid = section.querySelector(".project-grid");
+    const cards = Array.from(grid?.querySelectorAll(":scope > .project-card") ?? [], readCard);
+    return { section, grid, cards };
+  });
 
-  /**
-   * Extracts a valid timestamp from a project card.
-   * Supports `data-date="YYYY-MM-DD"` attribute or text inside `#Date` / `.date`.
-   */
-  function getCardTimestamp(card) {
-    // 1. Check optional data-date attribute first (most reliable)
-    if (card.dataset.date) {
-      const parsedAttr = Date.parse(card.dataset.date);
-      if (!isNaN(parsedAttr)) return parsedAttr;
-    }
-
-    // 2. Fallback to #Date or .date element text
-    const dateEl = card.querySelector("#Date, .date");
-    if (!dateEl) return 0;
-
-    let rawText = dateEl.textContent.trim();
-    if (!rawText) return 0;
-
-    // Remove common prefixes like "Date:" or "Published:"
-    rawText = rawText.replace(/^(date|published|uploaded)\s*:\s*/i, "").trim();
-
-    // Handle DD/MM/YYYY or DD-MM-YYYY formats (e.g., 25/11/2026 or 25-11-2026)
-    const dmyMatch = rawText.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
-    if (dmyMatch) {
-      const [, day, month, year] = dmyMatch;
-      return new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`).getTime();
-    }
-
-    // Remove ordinal suffixes (1st, 2nd, 3rd, 4th) so Date.parse handles "8th Nov 2026"
-    const cleanedDate = rawText.replace(/(\d+)(st|nd|rd|th)/gi, "$1");
-    const parsedText = Date.parse(cleanedDate);
-
-    return isNaN(parsedText) ? 0 : parsedText;
+  function normalize(text) {
+    return text.toLowerCase().trim().replace(/\s+/g, " ");
   }
 
-  /**
-   * Sorts all .project-card elements within each section from newest to oldest.
-   */
-  function sortCardsByDate() {
-    sections.forEach((section) => {
-      const cards = Array.from(section.querySelectorAll(".project-card"));
-      if (cards.length <= 1) return;
+  function parseDate(value = "") {
+    const cleaned = value.trim()
+      .replace(/^(date|published|uploaded)\s*:\s*/i, "")
+      .replace(/(\d+)(st|nd|rd|th)\b/gi, "$1");
+    const dayFirst = cleaned.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
+    const iso = dayFirst
+      ? `${dayFirst[3]}-${dayFirst[2].padStart(2, "0")}-${dayFirst[1].padStart(2, "0")}`
+      : cleaned;
+    const timestamp = Date.parse(iso);
 
-      cards.sort((a, b) => {
-        const timeA = getCardTimestamp(a);
-        const timeB = getCardTimestamp(b);
-        return timeB - timeA; // Descending (newest first). Swap to (timeA - timeB) for oldest first.
+    if (!Number.isFinite(timestamp)) return null;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(iso) && new Date(timestamp).toISOString().slice(0, 10) !== iso) {
+      return null;
+    }
+    return timestamp;
+  }
+
+  function readCard(card) {
+    const title = card.querySelector(".title, #titel")?.textContent;
+    const description = card.querySelector(".description, #description")?.textContent;
+    const date = card.querySelector(".date, #Date");
+    const timestamp = parseDate(card.dataset.date) ?? parseDate(date?.getAttribute("datetime")) ?? parseDate(date?.textContent);
+    const searchable = normalize([title, description, date?.textContent, date?.getAttribute("datetime"), card.dataset.date, card.dataset.tags].join(" "));
+
+    return { card, timestamp, searchable };
+  }
+
+  const total = groups.reduce((count, group) => count + group.cards.length, 0);
+  if (!total) return;
+
+  groups.forEach(({ grid, cards }) => {
+    if (cards.length < 2) return;
+    cards.sort((first, second) => {
+      if (first.timestamp === second.timestamp) return 0;
+      if (first.timestamp === null) return 1;
+      if (second.timestamp === null) return -1;
+      return second.timestamp - first.timestamp;
+    });
+    grid.append(...cards.map(({ card }) => card));
+  });
+
+  if (!searchInput) return;
+  const label = searchInput.closest("label");
+  if (label) label.hidden = false;
+
+  function filterCards() {
+    const query = normalize(searchInput.value);
+    const terms = query ? query.split(" ") : [];
+    let matches = 0;
+
+    groups.forEach(({ section, cards }) => {
+      let visible = 0;
+
+      cards.forEach(({ card, searchable }) => {
+        card.hidden = !terms.every((term) => searchable.includes(term));
+        if (!card.hidden) visible++;
       });
 
-      // Re-append cards in sorted order
-      cards.forEach((card) => section.appendChild(card));
+      section.hidden = Boolean(query) && visible === 0;
+      matches += visible;
     });
+
+    if (searchStatus) {
+      searchStatus.textContent = !query ? "" : matches
+        ? `${matches} ${matches === 1 ? "project" : "projects"} found.`
+        : "No matching projects. Try a different search.";
+    }
   }
 
-  /**
-   * Filters project cards based on search input text and hides empty sections.
-   */
-  function filterCards(query) {
-    const normalizedQuery = query.toLowerCase().trim();
-
-    sections.forEach((section) => {
-      const cards = Array.from(section.querySelectorAll(".project-card"));
-      let visibleCount = 0;
-
-      cards.forEach((card) => {
-        const titleEl = card.querySelector("#titel, .title");
-        const descEl = card.querySelector("#description, .description");
-        const dateEl = card.querySelector("#Date, .date");
-
-        const searchableText = [
-          titleEl ? titleEl.textContent : "",
-          descEl ? descEl.textContent : "",
-          dateEl ? dateEl.textContent : "",
-          card.dataset.tags || ""
-        ]
-          .join(" ")
-          .toLowerCase();
-
-        const isMatch = searchableText.includes(normalizedQuery);
-        card.style.display = isMatch ? "" : "none";
-
-        if (isMatch) visibleCount++;
-      });
-
-      // Hide the entire section if no cards match the query (when searching)
-      if (cards.length > 0) {
-        section.style.display = visibleCount === 0 && normalizedQuery !== "" ? "none" : "";
-      }
+  searchInput.addEventListener("input", filterCards);
+  document.querySelectorAll(".category-nav a").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const target = document.getElementById(link.hash.slice(1));
+      if (!target?.hidden) return;
+      searchInput.value = "";
+      filterCards();
     });
-  }
-
-  // Run date sorting immediately on load
-  sortCardsByDate();
-
-  // Attach live search listener
-  if (searchInput) {
-    searchInput.addEventListener("input", (event) => {
-      filterCards(event.target.value);
-    });
-  }
+  });
+  filterCards();
 });

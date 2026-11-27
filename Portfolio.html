@@ -3,56 +3,52 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pritam's Portfolio</title>
+    <title>Portfolio | Pritam Kamdar</title>
     <link rel="icon" href="Assets/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <script src="filter.js" defer></script>
   </head>
   <body>
     <header>
-      <nav id="Logo">
-        <img src="Assets/favicon.ico">
-        <p>Pritam's Portfolio</p>
-      </nav>
-      <nav id="menu">
-        <a href="index.html">Home</a>
-        <a href="Hobbies.html">Hobbies</a>
-        <a href="biodata.html">BioData</a>
-        <a href="#site">Site</a>
-        <a href="#edit">Edits</a>
-      </nav>
-      <input type="search" id="searchInput" placeholder="Search projects...">
+      <div class="header-inner">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">PK</span>Pritam Kamdar</a>
+        <nav id="menu" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="Portfolio.html" aria-current="page">Portfolio</a>
+          <a href="Hobbies.html">Hobbies</a>
+          <a href="biodata.html">Biodata</a>
+        </nav>
+      </div>
     </header>
     <main>
-      <section id="site">
-        <div class="project-card" data-date="">
-          <a href="">
-            <img src="">
-            <p id="titel"></p>
-            <p id="description"></p>
-            <p id="Date"></p>
-          </a>
-        </div>
+      <div class="page-intro">
+        <p class="eyebrow">Project archive</p>
+        <h1>Portfolio</h1>
+        <p>A place for the websites I build and the videos I edit as I learn.</p>
+      </div>
+      <div class="project-tools">
+        <nav class="category-nav" aria-label="Project categories">
+          <a href="#site">Websites</a>
+          <a href="#edit">Video edits</a>
+        </nav>
+        <label class="project-search" hidden>Search projects
+          <input type="search" id="searchInput" placeholder="Title, description, or date">
+        </label>
+      </div>
+      <p class="search-status" id="searchStatus" role="status"></p>
+      <section class="project-section" id="site">
+        <h2>Websites</h2>
+        <div class="project-grid"></div>
+        <p class="project-empty">No websites published here yet.</p>
       </section>
-      <section id="edit">
-        <div class="project-card" data-date="">
-          <video controls>
-            <source src="" type="">
-          </video>
-          <p id="titel"></p>
-          <p id="description"></p>
-          <p id="Date"></p>
-        </div>
+      <section class="project-section" id="edit">
+        <h2>Video edits</h2>
+        <div class="project-grid"></div>
+        <p class="project-empty">No video edits published here yet.</p>
       </section>
     </main>
     <footer>
-      <div>
-        <img src="Assets/favicon.ico">
-        <p>Pritam's Portfolio| Student | End Of Page | Web Developer | Video Editor</p>
-      </div>
+      <div><p>Pritam Kamdar · Student portfolio</p><a href="index.html#Contact">Contact</a></div>
     </footer>
-
-<script src="filter.js"></script>
-
-
   </body>
- </html>
+</html>
